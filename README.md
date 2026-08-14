@@ -167,3 +167,17 @@ It does not automatically mean safe, certified, compliant, approved or suitable 
 **ECZ-ID VERIFIED - ECZ-GB-RBS1NW**
 
 [View current public identity and evidence](https://resolver.ecocitizenz.org/passport/ECZ-GB-RBS1NW)
+
+---
+
+## GitHub-native agent evidence review
+
+For supported committed agent identity manifests and references, use the specialist **ECZ-ID Agent Trust** GitHub App:
+
+[Install ECZ-ID Agent Trust](https://github.com/marketplace/ecz-id-agent-trust)
+
+For broader supported MCP/agent configuration review, use:
+
+[Install ECZ-ID MCP & Agent Check](https://github.com/marketplace/ecz-id-mcp-agent-check)
+
+A child identity should still be evaluated in the context of its parent, its evidence and the relying party's own policy.
