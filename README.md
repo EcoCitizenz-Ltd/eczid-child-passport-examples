@@ -1,5 +1,7 @@
 # ECZ-ID Child Passport Examples
 
+![ECZ-ID Child Passport parent and child identity visual](https://raw.githubusercontent.com/EcoCitizenz-Ltd/.github/main/assets/repository-visuals/eczid-child-passport-examples.jpg)
+
 ## One organisation can operate many independently reviewable machine identities.
 
 An organisation may operate hundreds or thousands of digital and physical machine surfaces: APIs, agents, models, datasets, software releases, devices, robots, products, vehicles, drones and infrastructure.
@@ -164,8 +166,7 @@ It does not automatically mean safe, certified, compliant, approved or suitable 
 
 ## Public operator proof
 
-**ECZ-ID VERIFIED - ECZ-GB-RBS1NW**
-
+**ECZ-ID public identity evidence - ECZ-GB-RBS1NW**
 [View current public identity and evidence](https://resolver.ecocitizenz.org/passport/ECZ-GB-RBS1NW)
 
 ---
