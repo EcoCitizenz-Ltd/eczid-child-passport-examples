@@ -1,0 +1,19 @@
+{
+  "schema": "eczid.passport-carry-card",
+  "schema_version": "1.0",
+  "ecz_id": "ECZ-GB-EXAMPLE-AGENT",
+  "passport_family": "agent",
+  "resolver_url": "https://resolver.ecocitizenz.org/passport/ECZ-GB-EXAMPLE-AGENT",
+  "parent_ecz_id": "ECZ-GB-RBS1NW",
+  "subject_url": "https://github.com/EcoCitizenz-Ltd/eczid-child-passport-examples",
+  "acquisition_url": "https://trustops.ecocitizenz.com/start?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=carry-card",
+  "source": {
+    "type": "repository",
+    "name": "eczid-child-passport-examples",
+    "url": "https://github.com/EcoCitizenz-Ltd/eczid-child-passport-examples"
+  },
+  "extensions": {
+    "example_fixture": true,
+    "note": "Change passport_family and replace the EXAMPLE ECZ-ID with the issued child Passport before publishing a production card."
+  }
+}
