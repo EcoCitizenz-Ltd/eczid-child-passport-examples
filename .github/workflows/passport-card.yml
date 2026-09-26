@@ -1,0 +1,27 @@
+name: Passport Carry-Card
+
+on:
+  push:
+    paths:
+      - ".eczid/**"
+      - "passport-card.schema.json"
+      - "scripts/validate_passport_card.py"
+  pull_request:
+    paths:
+      - ".eczid/**"
+      - "passport-card.schema.json"
+      - "scripts/validate_passport_card.py"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate reference Carry-Card
+        run: python scripts/validate_passport_card.py .eczid/passport-card.example.json --allow-example
