@@ -8,8 +8,6 @@ An organisation may operate many digital and physical machine surfaces. ECZ-ID s
 
 ## Current launch model
 
-The ECZ-ID launch identity model is:
-
 ```text
 Parent Passport
       |
@@ -36,13 +34,11 @@ Paid products add assurance, authority, monitoring, evidence, capacity, tooling 
 
 ## Passport Carry-Card v1.0
 
-This repository is a reference implementation for the interoperable ECZ-ID **Passport Carry-Card**.
-
-A Carry-Card is a compact pointer envelope that can move through repositories, SDKs, plugins, packages, CI, marketplaces and services. It identifies which ECZ-ID to resolve without copying current Resolver truth into every distribution surface.
+This repository provides a public reference implementation of the ECZ-ID **Passport Carry-Card** interoperability profile.
 
 Reference files:
 
-- [Carry-Card specification](docs/PASSPORT_CARRY_CARD.md)
+- [Public interoperability guide](docs/PASSPORT_CARRY_CARD.md)
 - [JSON Schema](passport-card.schema.json)
 - [Example Card](.eczid/passport-card.example.json)
 - [Validator](scripts/validate_passport_card.py)
@@ -53,79 +49,25 @@ Validate the example:
 python scripts/validate_passport_card.py .eczid/passport-card.example.json --allow-example
 ```
 
-A production Card replaces the EXAMPLE ECZ-ID with an issued Passport and uses the appropriate family.
-
-## Frictionless distribution flywheel
-
-```text
-use a useful ECZ-ID asset for free
-  -> Get a free relevant Passport
-  -> return to the originating asset
-  -> configure the Carry-Card
-  -> Verify ECZ-ID through Resolver
-  -> add Resolver-linked badge/reference
-  -> another developer or machine encounters it
-  -> resolves current proof
-  -> obtains its own relevant free Passport
-  -> repeats
-```
-
-This loop does not require telemetry.
+A production Card replaces the EXAMPLE ECZ-ID with an issued Passport and uses the appropriate family. Current proof must be re-checked through Resolver.
 
 ---
 
-## Agent Passport
+## Passport families
 
-Use for an AI/software agent whose operator, authority, tools, dependencies and lifecycle need an independently resolvable identity.
+**Agent Passport** — agent identity and accountable operator/authority context.
 
-Review questions include who operates it, which authority is delegated, what tools/systems it can reach and whether those relationships remain current.
+**MCP Passport** — MCP server identity and operator/tool relationship context.
 
-[Agent Authority Toolkit](https://github.com/EcoCitizenz-Ltd/eczid-agent-authority-toolkit)
+**Plugin Passport** — plugin/extension/app identity and publisher relationship.
 
-## MCP Passport
+**API Passport** — API identity, operator and endpoint/dependency context.
 
-Use for an MCP server whose operator, server identity, exposed tools/resources and relationships need resolvable proof.
+**IoT Passport** — IoT product/model/fleet identity and lifecycle relationship.
 
-MCP Passport identity is free. MCP Trust, MCP Assurance and related services remain separate paid operating layers where applicable.
+**SDK Passport** — SDK/publisher/package/repository identity and provenance relationship.
 
-## Plugin Passport
-
-Use for a plugin/extension/app identity, publisher relationship, permissions/backend relationship and lifecycle.
-
-## API Passport
-
-Use for an API identity, operator, production endpoint and machine/service dependencies.
-
-[API Passport Starter](https://github.com/EcoCitizenz-Ltd/eczid-api-passport-starter)
-
-## IoT Passport
-
-Use for an IoT product/model/fleet identity and its operator/lifecycle relationships. Individual device-instance capacity is handled separately from pooled AEC.
-
-## SDK Passport
-
-Use for an SDK/publisher/package/repository identity and provenance/distribution relationships.
-
-## Service & Workload Passport
-
-Use for enduring services and workloads, including provider/cloud bindings and non-human workload identity relationships.
-
----
-
-## Child identity design checklist
-
-Before configuring a child Passport, ask:
-
-- [ ] Which of the seven Passport families represents the operational surface?
-- [ ] Who operates or owns it?
-- [ ] Which Parent should it link to?
-- [ ] Which evidence is appropriate to publish?
-- [ ] What must remain private?
-- [ ] Which authority/binding relationships matter?
-- [ ] How does lifecycle state change?
-- [ ] What indicates suspension, revocation, supersession or withdrawal?
-- [ ] How can relying parties re-check current proof?
-- [ ] Which decisions remain outside ECZ-ID?
+**Service & Workload Passport** — enduring service/workload identity and provider/cloud relationship.
 
 ---
 
@@ -135,22 +77,4 @@ A resolvable child identity can improve accountability and evidence review.
 
 It does not automatically mean safe, certified, compliant, approved, VERIFIED, ASSURED, BOUND or ENFORCED.
 
-Those terms must only be used when the relevant ECZ-ID state or live control actually supports them.
-
----
-
-## Public operator proof
-
-**ECZ-ID public identity evidence — ECZ-GB-RBS1NW**
-
 [View current public identity and evidence](https://resolver.ecocitizenz.org/passport/ECZ-GB-RBS1NW)
-
----
-
-## Distribution adapters
-
-The Carry-Card may be referenced from package metadata, OCI/container labels, website/service discovery, CI output, marketplace descriptions and compatible Agent/MCP manifests.
-
-The adapter never becomes canonical truth. Resolver remains the re-check point.
-
-Human-facing documentation may be localized; ECZ-IDs, JSON keys, protocol tokens, SKUs, ReasonCodes, hashes, signatures and machine states remain language-neutral.
