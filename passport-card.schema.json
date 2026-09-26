@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ECZ-ID Passport Carry-Card v1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "schema_version",
+    "ecz_id",
+    "passport_family",
+    "resolver_url"
+  ],
+  "properties": {
+    "schema": {
+      "const": "eczid.passport-carry-card"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "ecz_id": {
+      "type": "string",
+      "minLength": 8,
+      "description": "Stable ECZ-ID reference. Current state must be re-resolved; this field is not an assurance claim."
+    },
+    "passport_family": {
+      "type": "string",
+      "enum": [
+        "parent",
+        "agent",
+        "mcp",
+        "plugin",
+        "api",
+        "iot",
+        "sdk",
+        "service-workload"
+      ]
+    },
+    "resolver_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "machine_proof_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "parent_ecz_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "subject_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "badge_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "acquisition_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "repository",
+            "package",
+            "plugin",
+            "sdk",
+            "service",
+            "marketplace",
+            "ci",
+            "website",
+            "other"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Optional namespaced adapter data. Extensions may not override the required core fields."
+    }
+  }
+}
