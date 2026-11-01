@@ -67,10 +67,26 @@ jobs:
           sbom-status: NOT_CHECKED
           report-path: smoke-supply-chain-evidence.json
 
+      - name: Create neutral counterparty smoke manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .eczid
+          cat > .eczid/smoke-counterparty.json <<'JSON'
+          {
+            "relationship": "third-party",
+            "counterparty_label": "example-smoke-counterparty",
+            "as_of": "2026-11-01T00:00:00Z",
+            "review_window_days": 90,
+            "surfaces": []
+          }
+          JSON
+
       - name: Counterparty Gate @v1
         uses: EcoCitizenz-Ltd/eczid-counterparty-gate@v1
         with:
-          manifest-path: .eczid/nonexistent-smoke-counterparty.json
+          manifest-path: .eczid/smoke-counterparty.json
+          as-of: 2026-11-01T00:00:00Z
           report-path: smoke-counterparty-gate.json
 
       - name: Assert all nine reports were produced
