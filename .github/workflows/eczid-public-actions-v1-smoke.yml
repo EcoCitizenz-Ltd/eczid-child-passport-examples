@@ -1,0 +1,89 @@
+name: ECZ-ID public Actions @v1 smoke
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-actions-v1-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout clean consumer repository
+        uses: actions/checkout@v7
+
+      - name: Workflow Trust @v1
+        uses: EcoCitizenz-Ltd/eczid-workflow-trust@v1
+        with:
+          report-path: smoke-workflow-trust.json
+
+      - name: Agentic Workflow Trust @v1
+        uses: EcoCitizenz-Ltd/eczid-agentic-workflow-trust@v1
+        with:
+          report-path: smoke-agentic-workflow-trust.json
+
+      - name: Passport Bootstrap @v1
+        uses: EcoCitizenz-Ltd/eczid-passport-bootstrap@v1
+        with:
+          family: plugin
+          mode: check
+          report-path: smoke-passport-bootstrap.json
+
+      - name: Trust Delta @v1
+        uses: EcoCitizenz-Ltd/eczid-trust-delta@v1
+        with:
+          baseline-path: .eczid/nonexistent-smoke-baseline.json
+          report-path: smoke-trust-delta.json
+          proposal-path: smoke-trust-delta-proposed.json
+
+      - name: Website Security @v1
+        uses: EcoCitizenz-Ltd/eczid-website-security@v1
+        with:
+          website: https://example.com
+          report-path: smoke-website-security.json
+
+      - name: API Trust @v1
+        uses: EcoCitizenz-Ltd/eczid-api-trust@v1
+        with:
+          report-path: smoke-api-trust.json
+
+      - name: Release Identity and Provenance @v1
+        uses: EcoCitizenz-Ltd/eczid-release-identity-provenance@v1
+        with:
+          release-ref: smoke-v1
+          provenance-status: NOT_CHECKED
+          sbom-status: NOT_CHECKED
+          report-path: smoke-release-identity-provenance.json
+
+      - name: Supply Chain Evidence @v1
+        uses: EcoCitizenz-Ltd/eczid-supply-chain-evidence@v1
+        with:
+          family: plugin
+          provenance-status: NOT_CHECKED
+          sbom-status: NOT_CHECKED
+          report-path: smoke-supply-chain-evidence.json
+
+      - name: Counterparty Gate @v1
+        uses: EcoCitizenz-Ltd/eczid-counterparty-gate@v1
+        with:
+          manifest-path: .eczid/nonexistent-smoke-counterparty.json
+          report-path: smoke-counterparty-gate.json
+
+      - name: Assert all nine reports were produced
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f smoke-workflow-trust.json
+          test -f smoke-agentic-workflow-trust.json
+          test -f smoke-passport-bootstrap.json
+          test -f smoke-trust-delta.json
+          test -f smoke-website-security.json
+          test -f smoke-api-trust.json
+          test -f smoke-release-identity-provenance.json
+          test -f smoke-supply-chain-evidence.json
+          test -f smoke-counterparty-gate.json
+          echo "All nine ECZ-ID public Actions resolved through @v1 and produced reports."
