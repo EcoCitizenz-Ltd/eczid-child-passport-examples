@@ -6,11 +6,19 @@ on:
       - ".eczid/**"
       - "passport-card.schema.json"
       - "scripts/validate_passport_card.py"
+      - "scripts/test_validate_passport_card.py"
+      - "docs/PASSPORT_CARRY_CARD.md"
+      - "examples/README.md"
+      - ".github/workflows/passport-card.yml"
   pull_request:
     paths:
       - ".eczid/**"
       - "passport-card.schema.json"
       - "scripts/validate_passport_card.py"
+      - "scripts/test_validate_passport_card.py"
+      - "docs/PASSPORT_CARRY_CARD.md"
+      - "examples/README.md"
+      - ".github/workflows/passport-card.yml"
 
 permissions:
   contents: read
@@ -23,5 +31,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate reference Carry-Card
-        run: python scripts/validate_passport_card.py .eczid/passport-card.example.json --allow-example
+      - name: Parse JSON Schema
+        run: python -m json.tool passport-card.schema.json > /dev/null
+      - name: Validate all checked-in family fixtures
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/validate_passport_card.py .eczid/passport-card.example.json --allow-example
+          for fixture in .eczid/examples/*.example.json; do
+            python scripts/validate_passport_card.py "$fixture" --allow-example
+          done
+      - name: Run seven-family contract regressions
+        run: python -m unittest scripts/test_validate_passport_card.py
