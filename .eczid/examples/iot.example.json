@@ -1,0 +1,12 @@
+{
+  "schema": "eczid.passport-carry-card",
+  "schema_version": "1.0",
+  "ecz_id": "ECZ-ZZ-EXAMPL::IOT_DEVICE-E5F6G7",
+  "passport_family": "iot",
+  "resolver_url": "https://resolver.ecocitizenz.org/p/ECZ-ZZ-EXAMPL%3A%3AIOT_DEVICE-E5F6G7",
+  "machine_proof_url": "https://api.ecocitizenz.com/api/p/ECZ-ZZ-EXAMPL%3A%3AIOT_DEVICE-E5F6G7.json",
+  "parent_ecz_id": "ECZ-ZZ-EXAMPL",
+  "subject_url": "https://github.com/EcoCitizenz-Ltd/eczid-child-passport-examples",
+  "acquisition_url": "https://trustops.ecocitizenz.com/start",
+  "extensions": {"example_fixture": true, "note": "Syntactically current, deliberately non-issued IoT Passport fixture."}
+}
