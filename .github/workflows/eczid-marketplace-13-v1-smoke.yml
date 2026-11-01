@@ -1,0 +1,178 @@
+name: ECZ-ID Marketplace 13 Action external consumer smoke
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout consumer repository
+        uses: actions/checkout@v7
+
+      - name: Create neutral counterparty fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p .eczid
+          cat > .eczid/counterparty.json <<'JSON'
+          {
+            "relationship": "third-party",
+            "counterparty_label": "external-consumer-smoke",
+            "as_of": "2026-11-01T00:00:00Z",
+            "review_window_days": 90,
+            "surfaces": []
+          }
+          JSON
+
+      - name: Workflow Trust @v1
+        id: workflow_trust
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-workflow-trust@v1
+
+      - name: Agentic Workflow Trust @v1
+        id: agentic_workflow_trust
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-agentic-workflow-trust@v1
+
+      - name: Passport Bootstrap @v1
+        id: passport_bootstrap
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-passport-bootstrap@v1
+
+      - name: Trust Delta @v1
+        id: trust_delta
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-trust-delta@v1
+
+      - name: Website Security @v1
+        id: website_security
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-website-security@v1
+        with:
+          website: https://example.com
+
+      - name: API Trust @v1
+        id: api_trust
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-api-trust@v1
+
+      - name: Release Identity & Provenance @v1
+        id: release_identity_provenance
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-release-identity-provenance@v1
+
+      - name: Supply Chain Evidence @v1
+        id: supply_chain_evidence
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-supply-chain-evidence@v1
+
+      - name: Counterparty Gate @v1
+        id: counterparty_gate
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-counterparty-gate@v1
+        with:
+          as-of: 2026-11-01T00:00:00Z
+
+      - name: MSP AI & Agent Estate @v1
+        id: msp_ai_agent_estate
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-msp-ai-agent-estate@v1
+
+      - name: MSP Machine Estate Inventory @v1
+        id: msp_machine_estate
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-msp-machine-estate-inventory@v1
+
+      - name: MSP Evidence & QBR Pack @v1
+        id: msp_evidence_qbr
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-msp-evidence-qbr-pack@v1
+        with:
+          profile: qbr
+
+      - name: MSP Standard Drift @v1
+        id: msp_standard_drift
+        continue-on-error: true
+        uses: EcoCitizenz-Ltd/eczid-msp-standard-drift@v1
+        with:
+          mode: propose
+
+      - name: Assert all 13 Actions and reports
+        if: always()
+        shell: bash
+        env:
+          WORKFLOW_TRUST_OUTCOME: ${{ steps.workflow_trust.outcome }}
+          AGENTIC_WORKFLOW_TRUST_OUTCOME: ${{ steps.agentic_workflow_trust.outcome }}
+          PASSPORT_BOOTSTRAP_OUTCOME: ${{ steps.passport_bootstrap.outcome }}
+          TRUST_DELTA_OUTCOME: ${{ steps.trust_delta.outcome }}
+          WEBSITE_SECURITY_OUTCOME: ${{ steps.website_security.outcome }}
+          API_TRUST_OUTCOME: ${{ steps.api_trust.outcome }}
+          RELEASE_IDENTITY_PROVENANCE_OUTCOME: ${{ steps.release_identity_provenance.outcome }}
+          SUPPLY_CHAIN_EVIDENCE_OUTCOME: ${{ steps.supply_chain_evidence.outcome }}
+          COUNTERPARTY_GATE_OUTCOME: ${{ steps.counterparty_gate.outcome }}
+          MSP_AI_AGENT_ESTATE_OUTCOME: ${{ steps.msp_ai_agent_estate.outcome }}
+          MSP_MACHINE_ESTATE_OUTCOME: ${{ steps.msp_machine_estate.outcome }}
+          MSP_EVIDENCE_QBR_OUTCOME: ${{ steps.msp_evidence_qbr.outcome }}
+          MSP_STANDARD_DRIFT_OUTCOME: ${{ steps.msp_standard_drift.outcome }}
+        run: |
+          set -euo pipefail
+
+          outcomes=(
+            WORKFLOW_TRUST_OUTCOME
+            AGENTIC_WORKFLOW_TRUST_OUTCOME
+            PASSPORT_BOOTSTRAP_OUTCOME
+            TRUST_DELTA_OUTCOME
+            WEBSITE_SECURITY_OUTCOME
+            API_TRUST_OUTCOME
+            RELEASE_IDENTITY_PROVENANCE_OUTCOME
+            SUPPLY_CHAIN_EVIDENCE_OUTCOME
+            COUNTERPARTY_GATE_OUTCOME
+            MSP_AI_AGENT_ESTATE_OUTCOME
+            MSP_MACHINE_ESTATE_OUTCOME
+            MSP_EVIDENCE_QBR_OUTCOME
+            MSP_STANDARD_DRIFT_OUTCOME
+          )
+
+          for name in "${outcomes[@]}"; do
+            value="${!name}"
+            echo "$name=$value"
+            if [[ "$value" != "success" ]]; then
+              echo "Action invocation failed: $name=$value" >&2
+              exit 1
+            fi
+          done
+
+          reports=(
+            eczid-workflow-trust.json
+            eczid-agentic-workflow-trust.json
+            eczid-passport-bootstrap.json
+            eczid-trust-delta.json
+            eczid-website-security.json
+            eczid-api-trust.json
+            eczid-release-identity-provenance.json
+            eczid-supply-chain-evidence.json
+            eczid-counterparty-gate.json
+            eczid-msp-ai-agent-estate.json
+            eczid-msp-machine-estate.json
+            eczid-msp-evidence-pack.json
+            eczid-msp-evidence-pack.md
+            eczid-msp-standard-drift.json
+          )
+
+          for report in "${reports[@]}"; do
+            if [[ ! -s "$report" ]]; then
+              echo "Expected non-empty report missing: $report" >&2
+              exit 1
+            fi
+            echo "verified report: $report"
+          done
+
+          echo "All 13 public ECZ-ID @v1 Actions executed successfully from an external consumer repository."
