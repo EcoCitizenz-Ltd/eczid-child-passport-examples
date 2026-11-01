@@ -11,24 +11,24 @@ An organisation may operate many digital and physical machine surfaces. ECZ-ID s
 ```text
 Parent Passport
       |
-      +-- Agent Passport
-      +-- MCP Passport
-      +-- Plugin Passport
-      +-- API Passport
-      +-- IoT Passport
-      +-- SDK Passport
-      +-- Service & Workload Passport
+      +-- Agent Passport               AGENT_PASSPORT
+      +-- MCP Passport                 MCP_PASSPORT
+      +-- Plugin Passport              PLUGIN_PASSPORT
+      +-- API Passport                 API_PASSPORT
+      +-- IoT Passport                 IOT_DEVICE
+      +-- SDK Passport                 SDK_PASSPORT
+      +-- Service & Workload Passport  SERVICE_WORKLOAD_PASSPORT
 ```
 
 All seven child Passport identities are free.
 
-Paid products add assurance, authority, monitoring, evidence, capacity, tooling and professional services. They do **not** turn the child Passport identity into a paid product.
+Paid products add assurance, authority, monitoring, evidence, capacity, tooling and professional services. They do **not** turn the child Passport identity into a paid product, and Parent strength is not automatically inherited by a child machine Passport.
 
 ## Start here
 
 - [Get a free Passport](https://trustops.ecocitizenz.com/start?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=get-free-passport)
 - [Developer Gateway](https://developers.ecocitizenz.com?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=developers)
-- [View live Resolver proof](https://resolver.ecocitizenz.org/passport/ECZ-GB-RBS1NW)
+- [View EcoCitizenz's current public Resolver record](https://resolver.ecocitizenz.org/p/ECZ-GB-RBS1NW)
 
 ---
 
@@ -40,16 +40,51 @@ Reference files:
 
 - [Public interoperability guide](docs/PASSPORT_CARRY_CARD.md)
 - [JSON Schema](passport-card.schema.json)
-- [Example Card](.eczid/passport-card.example.json)
+- [Agent example](.eczid/passport-card.example.json)
+- [Other six family examples](.eczid/examples/)
 - [Validator](scripts/validate_passport_card.py)
+- [Regression tests](scripts/test_validate_passport_card.py)
 
-Validate the example:
+Validate the Agent fixture:
 
 ```bash
 python scripts/validate_passport_card.py .eczid/passport-card.example.json --allow-example
 ```
 
-A production Card replaces the EXAMPLE ECZ-ID with an issued Passport and uses the appropriate family. Current proof must be re-checked through Resolver.
+Run the full contract regression suite:
+
+```bash
+python -m unittest scripts/test_validate_passport_card.py
+```
+
+Every checked-in ECZ-ID is a **syntactically current but deliberately non-issued fixture**. The example flag is required precisely so a fixture cannot be mistaken for production proof.
+
+Current proof must always be re-checked through Resolver.
+
+---
+
+## Current child identifier grammar
+
+```text
+{parent_ecz_id}::{CURRENT_TYPE_CODE}-XXXXXX
+```
+
+Example shape only:
+
+```text
+ECZ-ZZ-EXAMPL::AGENT_PASSPORT-A1B2C3
+```
+
+The example above is not issued.
+
+Canonical proof pointers URL-encode the complete identifier:
+
+```text
+Human:   https://resolver.ecocitizenz.org/p/{URL-encoded ecz_id}
+Machine: https://api.ecocitizenz.com/api/p/{URL-encoded ecz_id}.json
+```
+
+Historical catalogue-era child codes are not current Passport family identifiers.
 
 ---
 
@@ -67,7 +102,9 @@ A production Card replaces the EXAMPLE ECZ-ID with an issued Passport and uses t
 
 **SDK Passport** — SDK/publisher/package/repository identity and provenance relationship.
 
-**Service & Workload Passport** — enduring service/workload identity and provider/cloud relationship.
+**Service & Workload Passport** — enduring service/workload identity and provider/cloud relationship. A container image, pod, replica, process or region is not automatically a separate Passport.
+
+See [the example index](examples/README.md) for how other domain concepts map to these seven families without inventing extra Passport types.
 
 ---
 
@@ -77,4 +114,6 @@ A resolvable child identity can improve accountability and evidence review.
 
 It does not automatically mean safe, certified, compliant, approved, VERIFIED, ASSURED, BOUND or ENFORCED.
 
-[View current public identity and evidence](https://resolver.ecocitizenz.org/passport/ECZ-GB-RBS1NW)
+A missing public record is not automatically unsafe or untrusted; an unreadable Resolver is not silently converted into absence.
+
+[View current public identity and evidence](https://resolver.ecocitizenz.org/p/ECZ-GB-RBS1NW)
