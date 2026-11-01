@@ -1,0 +1,12 @@
+{
+  "schema": "eczid.passport-carry-card",
+  "schema_version": "1.0",
+  "ecz_id": "ECZ-ZZ-EXAMPL::MCP_PASSPORT-B2C3D4",
+  "passport_family": "mcp",
+  "resolver_url": "https://resolver.ecocitizenz.org/p/ECZ-ZZ-EXAMPL%3A%3AMCP_PASSPORT-B2C3D4",
+  "machine_proof_url": "https://api.ecocitizenz.com/api/p/ECZ-ZZ-EXAMPL%3A%3AMCP_PASSPORT-B2C3D4.json",
+  "parent_ecz_id": "ECZ-ZZ-EXAMPL",
+  "subject_url": "https://github.com/EcoCitizenz-Ltd/eczid-child-passport-examples",
+  "acquisition_url": "https://trustops.ecocitizenz.com/start",
+  "extensions": {"example_fixture": true, "note": "Syntactically current, deliberately non-issued MCP Passport fixture."}
+}

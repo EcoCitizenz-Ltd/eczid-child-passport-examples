@@ -1,0 +1,12 @@
+{
+  "schema": "eczid.passport-carry-card",
+  "schema_version": "1.0",
+  "ecz_id": "ECZ-ZZ-EXAMPL::SERVICE_WORKLOAD_PASSPORT-G7H8J9",
+  "passport_family": "service-workload",
+  "resolver_url": "https://resolver.ecocitizenz.org/p/ECZ-ZZ-EXAMPL%3A%3ASERVICE_WORKLOAD_PASSPORT-G7H8J9",
+  "machine_proof_url": "https://api.ecocitizenz.com/api/p/ECZ-ZZ-EXAMPL%3A%3ASERVICE_WORKLOAD_PASSPORT-G7H8J9.json",
+  "parent_ecz_id": "ECZ-ZZ-EXAMPL",
+  "subject_url": "https://github.com/EcoCitizenz-Ltd/eczid-child-passport-examples",
+  "acquisition_url": "https://trustops.ecocitizenz.com/start",
+  "extensions": {"example_fixture": true, "note": "Syntactically current, deliberately non-issued Service & Workload Passport fixture."}
+}

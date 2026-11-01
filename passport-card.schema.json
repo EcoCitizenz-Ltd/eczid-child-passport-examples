@@ -3,95 +3,56 @@
   "title": "ECZ-ID Passport Carry-Card v1.0",
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "schema",
-    "schema_version",
-    "ecz_id",
-    "passport_family",
-    "resolver_url"
-  ],
+  "required": ["schema", "schema_version", "ecz_id", "passport_family", "resolver_url"],
   "properties": {
-    "schema": {
-      "const": "eczid.passport-carry-card"
-    },
-    "schema_version": {
-      "const": "1.0"
-    },
+    "schema": { "const": "eczid.passport-carry-card" },
+    "schema_version": { "const": "1.0" },
     "ecz_id": {
       "type": "string",
-      "minLength": 8,
-      "description": "Stable ECZ-ID reference. Current state must be re-resolved; this field is not an assurance claim."
+      "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}(::(AGENT_PASSPORT|MCP_PASSPORT|PLUGIN_PASSPORT|API_PASSPORT|IOT_DEVICE|SDK_PASSPORT|SERVICE_WORKLOAD_PASSPORT)-[0-9A-Z]{6})?$",
+      "description": "Current public parent or seven-family child ECZ-ID reference. Current state must be re-resolved; this field is not an assurance claim."
     },
     "passport_family": {
       "type": "string",
-      "enum": [
-        "parent",
-        "agent",
-        "mcp",
-        "plugin",
-        "api",
-        "iot",
-        "sdk",
-        "service-workload"
-      ]
+      "enum": ["parent", "agent", "mcp", "plugin", "api", "iot", "sdk", "service-workload"]
     },
     "resolver_url": {
       "type": "string",
-      "format": "uri"
+      "format": "uri",
+      "description": "Canonical human Resolver URL: https://resolver.ecocitizenz.org/p/{URL-encoded ecz_id}."
     },
     "machine_proof_url": {
       "type": "string",
-      "format": "uri"
+      "format": "uri",
+      "description": "Canonical machine proof URL when carried: https://api.ecocitizenz.com/api/p/{URL-encoded ecz_id}.json."
     },
-    "parent_ecz_id": {
-      "type": "string",
-      "minLength": 8
-    },
-    "subject_url": {
-      "type": "string",
-      "format": "uri"
-    },
-    "badge_url": {
-      "type": "string",
-      "format": "uri"
-    },
-    "acquisition_url": {
-      "type": "string",
-      "format": "uri"
-    },
+    "parent_ecz_id": { "type": "string", "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}$" },
+    "subject_url": { "type": "string", "format": "uri" },
+    "badge_url": { "type": "string", "format": "uri" },
+    "acquisition_url": { "type": "string", "format": "uri" },
     "source": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "repository",
-            "package",
-            "plugin",
-            "sdk",
-            "service",
-            "marketplace",
-            "ci",
-            "website",
-            "other"
-          ]
-        },
-        "name": {
-          "type": "string"
-        },
-        "version": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string",
-          "format": "uri"
-        }
+        "type": { "type": "string", "enum": ["repository", "package", "plugin", "sdk", "service", "marketplace", "ci", "website", "other"] },
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
       }
     },
     "extensions": {
       "type": "object",
       "description": "Optional namespaced adapter data. Extensions may not override the required core fields."
     }
-  }
+  },
+  "allOf": [
+    { "if": { "properties": { "passport_family": { "const": "parent" } }, "required": ["passport_family"] }, "then": { "properties": { "ecz_id": { "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}$" } } } },
+    { "if": { "properties": { "passport_family": { "const": "agent" } }, "required": ["passport_family"] }, "then": { "properties": { "ecz_id": { "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}::AGENT_PASSPORT-[0-9A-Z]{6}$" } } } },
+    { "if": { "properties": { "passport_family": { "const": "mcp" } }, "required": ["passport_family"] }, "then": { "properties": { "ecz_id": { "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}::MCP_PASSPORT-[0-9A-Z]{6}$" } } } },
+    { "if": { "properties": { "passport_family": { "const": "plugin" } }, "required": ["passport_family"] }, "then": { "properties": { "ecz_id": { "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}::PLUGIN_PASSPORT-[0-9A-Z]{6}$" } } } },
+    { "if": { "properties": { "passport_family": { "const": "api" } }, "required": ["passport_family"] }, "then": { "properties": { "ecz_id": { "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}::API_PASSPORT-[0-9A-Z]{6}$" } } } },
+    { "if": { "properties": { "passport_family": { "const": "iot" } }, "required": ["passport_family"] }, "then": { "properties": { "ecz_id": { "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}::IOT_DEVICE-[0-9A-Z]{6}$" } } } },
+    { "if": { "properties": { "passport_family": { "const": "sdk" } }, "required": ["passport_family"] }, "then": { "properties": { "ecz_id": { "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}::SDK_PASSPORT-[0-9A-Z]{6}$" } } } },
+    { "if": { "properties": { "passport_family": { "const": "service-workload" } }, "required": ["passport_family"] }, "then": { "properties": { "ecz_id": { "pattern": "^ECZ-[A-Z]{2}-[0-9A-Z]{6}::SERVICE_WORKLOAD_PASSPORT-[0-9A-Z]{6}$" } } } }
+  ]
 }
