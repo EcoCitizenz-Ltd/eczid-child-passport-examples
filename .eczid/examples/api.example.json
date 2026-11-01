@@ -1,0 +1,12 @@
+{
+  "schema": "eczid.passport-carry-card",
+  "schema_version": "1.0",
+  "ecz_id": "ECZ-ZZ-EXAMPL::API_PASSPORT-D4E5F6",
+  "passport_family": "api",
+  "resolver_url": "https://resolver.ecocitizenz.org/p/ECZ-ZZ-EXAMPL%3A%3AAPI_PASSPORT-D4E5F6",
+  "machine_proof_url": "https://api.ecocitizenz.com/api/p/ECZ-ZZ-EXAMPL%3A%3AAPI_PASSPORT-D4E5F6.json",
+  "parent_ecz_id": "ECZ-ZZ-EXAMPL",
+  "subject_url": "https://github.com/EcoCitizenz-Ltd/eczid-child-passport-examples",
+  "acquisition_url": "https://trustops.ecocitizenz.com/start",
+  "extensions": {"example_fixture": true, "note": "Syntactically current, deliberately non-issued API Passport fixture."}
+}
