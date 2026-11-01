@@ -1,0 +1,64 @@
+name: ECZ-ID MSP wrapper external smoke
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout consumer repository
+        uses: actions/checkout@v7
+
+      - name: MSP AI & Agent Estate @v1
+        uses: EcoCitizenz-Ltd/eczid-msp-ai-agent-estate@v1
+        with:
+          output: eczid-msp-ai-agent-estate.json
+          fail-on: never
+
+      - name: MSP Machine Estate Inventory @v1
+        uses: EcoCitizenz-Ltd/eczid-msp-machine-estate-inventory@v1
+        with:
+          output: eczid-msp-machine-estate.json
+          fail-on: never
+
+      - name: MSP Evidence & QBR Pack @v1
+        uses: EcoCitizenz-Ltd/eczid-msp-evidence-qbr-pack@v1
+        with:
+          profile: qbr
+          output-json: eczid-msp-evidence-pack.json
+          output-markdown: eczid-msp-evidence-pack.md
+          fail-on: never
+
+      - name: MSP Standard Drift @v1
+        uses: EcoCitizenz-Ltd/eczid-msp-standard-drift@v1
+        with:
+          mode: propose
+          output: eczid-msp-standard-drift.json
+          fail-on: never
+
+      - name: Assert all MSP wrapper outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s eczid-msp-ai-agent-estate.json
+          test -s eczid-msp-machine-estate.json
+          test -s eczid-msp-evidence-pack.json
+          test -s eczid-msp-evidence-pack.md
+          test -s eczid-msp-standard-drift.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for name in [
+              'eczid-msp-ai-agent-estate.json',
+              'eczid-msp-machine-estate.json',
+              'eczid-msp-evidence-pack.json',
+              'eczid-msp-standard-drift.json',
+          ]:
+              json.loads(Path(name).read_text(encoding='utf-8'))
+          print('All four public MSP @v1 Actions produced parseable expected outputs.')
+          PY
