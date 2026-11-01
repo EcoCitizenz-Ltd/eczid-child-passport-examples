@@ -1,10 +1,11 @@
 {
   "schema": "eczid.passport-carry-card",
   "schema_version": "1.0",
-  "ecz_id": "ECZ-GB-EXAMPLE-AGENT",
+  "ecz_id": "ECZ-ZZ-EXAMPL::AGENT_PASSPORT-A1B2C3",
   "passport_family": "agent",
-  "resolver_url": "https://resolver.ecocitizenz.org/passport/ECZ-GB-EXAMPLE-AGENT",
-  "parent_ecz_id": "ECZ-GB-RBS1NW",
+  "resolver_url": "https://resolver.ecocitizenz.org/p/ECZ-ZZ-EXAMPL%3A%3AAGENT_PASSPORT-A1B2C3",
+  "machine_proof_url": "https://api.ecocitizenz.com/api/p/ECZ-ZZ-EXAMPL%3A%3AAGENT_PASSPORT-A1B2C3.json",
+  "parent_ecz_id": "ECZ-ZZ-EXAMPL",
   "subject_url": "https://github.com/EcoCitizenz-Ltd/eczid-child-passport-examples",
   "acquisition_url": "https://trustops.ecocitizenz.com/start?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=carry-card",
   "source": {
@@ -14,6 +15,6 @@
   },
   "extensions": {
     "example_fixture": true,
-    "note": "Change passport_family and replace the EXAMPLE ECZ-ID with the issued child Passport before publishing a production card."
+    "note": "Syntactically current but deliberately non-issued fixture. Replace with the legitimately issued Agent Passport before publishing a production card."
   }
 }
