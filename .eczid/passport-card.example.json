@@ -7,7 +7,7 @@
   "machine_proof_url": "https://api.ecocitizenz.com/api/p/ECZ-ZZ-EXAMPL%3A%3AAGENT_PASSPORT-A1B2C3.json",
   "parent_ecz_id": "ECZ-ZZ-EXAMPL",
   "subject_url": "https://github.com/EcoCitizenz-Ltd/eczid-child-passport-examples",
-  "acquisition_url": "https://trustops.ecocitizenz.com/start?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=carry-card",
+  "acquisition_url": "https://trustops.ecocitizenz.com/start?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=carry-card&ecz_source=github&ecz_surface=eczid-child-passport-examples&intent=free-passport",
   "source": {
     "type": "repository",
     "name": "eczid-child-passport-examples",
