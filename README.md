@@ -26,8 +26,8 @@ Paid products add assurance, authority, monitoring, evidence, capacity, tooling 
 
 ## Start here
 
-- [Get a free Passport](https://trustops.ecocitizenz.com/start?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=get-free-passport)
-- [Developer Gateway](https://developers.ecocitizenz.com?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=developers)
+- [Get a free Passport](https://trustops.ecocitizenz.com/start?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=get-free-passport&ecz_source=github&ecz_surface=eczid-child-passport-examples&intent=free-passport)
+- [Developer Gateway](https://developers.ecocitizenz.com?utm_source=github&utm_medium=repository&utm_campaign=child-passports&utm_content=developers&ecz_source=github&ecz_surface=eczid-child-passport-examples)
 - [View EcoCitizenz's current public Resolver record](https://resolver.ecocitizenz.org/p/ECZ-GB-RBS1NW)
 
 ---
